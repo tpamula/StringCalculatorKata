@@ -30,6 +30,19 @@ namespace StringCalculatorKata.Tests
             Assert.Equal(expected, result);
         }
 
+        [Theory]
+        [InlineData("1,2,3", 6)]
+        [InlineData("10,20,30,40,50,60", 210)]
+        [InlineData("7,8,9,10,11,12,13,14,15", 99)]
+        public void returns_correct_sum_for_unknown_amount_of_numbers(string input, int expected)
+        {
+            var calculator = new StringCalculator();
+
+            int result = calculator.Add(input);
+
+            Assert.Equal(expected, result);
+        }
+
         [Fact]
         public void returns_zero_for_empty_string()
         {
