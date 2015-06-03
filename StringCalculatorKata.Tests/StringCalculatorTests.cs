@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using System;
+using Xunit;
 
 namespace StringCalculatorKata.Tests
 {
@@ -78,6 +79,20 @@ namespace StringCalculatorKata.Tests
             int result = calculator.Add(input);
 
             Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData("-2", "-2")]
+        [InlineData("1,2,3,-4,-5", "-4,-5")]
+        [InlineData("1,2,3,-4,-5,1,1,-3,2", "-4,-5,-3")]
+        public void throws_exception_with_negative_numbers_in_input(string input, string expected)
+        {
+            var calculator = new StringCalculator();
+
+            Action processInput = () => calculator.Add(input);
+
+            var exception = Assert.Throws<Exception>(processInput);
+            Assert.Equal(expected, exception.Message);
         }
     }
 }

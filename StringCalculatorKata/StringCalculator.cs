@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,7 +20,15 @@ namespace StringCalculatorKata
                 inputWithoutCustomSeparatorTag = input.Substring(customDelimiterTagLength - 1);
             }
 
-            return inputWithoutCustomSeparatorTag.Split(separators.ToArray()).Sum(i => int.Parse(i));
+            var numbers = inputWithoutCustomSeparatorTag
+                                .Split(separators.ToArray())
+                                .Select(int.Parse)
+                                .ToList();
+
+            var negatives = numbers.Where(n => n < 0).ToList();
+            if (negatives.Any()) throw new Exception(string.Join(",", negatives));
+
+            return numbers.Sum();
         }
     }
 }
