@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace StringCalculatorKata
@@ -8,9 +6,9 @@ namespace StringCalculatorKata
     {
         public int Add(string input)
         {
-            if (string.IsNullOrEmpty(input)) return 0;
-
-            return input.Split(',').Sum(i => int.Parse(i));
+            return string.IsNullOrEmpty(input)
+                ? 0
+                : input.Split(',').Sum(i => int.Parse(i));
         }
     }
 }
