@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 
 namespace StringCalculatorKata
@@ -6,11 +7,19 @@ namespace StringCalculatorKata
     {
         public int Add(string input)
         {
-            char[] separators = { ',', '\n' };
+            if (string.IsNullOrEmpty(input)) return 0;
 
-            return string.IsNullOrEmpty(input)
-                ? 0
-                : input.Split(separators).Sum(i => int.Parse(i));
+            int customDelimiterTagLength = @"//_\n".Length;
+            var separators = new HashSet<char> { ',', '\n' };
+
+            string inputWithoutCustomSeparatorTag = input;
+            if (input.Length >= customDelimiterTagLength && input.Substring(0, 2) == "//")
+            {
+                separators.Add(input[2]);
+                inputWithoutCustomSeparatorTag = input.Substring(customDelimiterTagLength - 1);
+            }
+
+            return inputWithoutCustomSeparatorTag.Split(separators.ToArray()).Sum(i => int.Parse(i));
         }
     }
 }

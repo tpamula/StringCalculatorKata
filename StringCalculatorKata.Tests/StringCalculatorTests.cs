@@ -66,5 +66,18 @@ namespace StringCalculatorKata.Tests
             // assert
             Assert.Equal(0, result);
         }
+
+        [Theory]
+        [InlineData("//;\n1;2", 3)]
+        [InlineData("//c\n1c2c3", 6)]
+        [InlineData("//!\n1!2!3!4", 10)]
+        public void supports_custom_delimiters(string input, int expected)
+        {
+            var calculator = new StringCalculator();
+
+            int result = calculator.Add(input);
+
+            Assert.Equal(expected, result);
+        }
     }
 }
