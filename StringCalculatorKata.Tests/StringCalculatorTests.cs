@@ -4,6 +4,17 @@ namespace StringCalculatorKata.Tests
 {
     public class StringCalculatorTests
     {
+        [Fact]
+        public void handles_newline_as_separator()
+        {
+            var calculator = new StringCalculator();
+            string input = "1\n2\n3";
+
+            int result = calculator.Add(input);
+
+            Assert.Equal(6, result);
+        }
+
         [Theory]
         [InlineData("1", 1)]
         [InlineData("7", 7)]

@@ -6,9 +6,11 @@ namespace StringCalculatorKata
     {
         public int Add(string input)
         {
+            char[] separators = { ',', '\n' };
+
             return string.IsNullOrEmpty(input)
                 ? 0
-                : input.Split(',').Sum(i => int.Parse(i));
+                : input.Split(separators).Sum(i => int.Parse(i));
         }
     }
 }
