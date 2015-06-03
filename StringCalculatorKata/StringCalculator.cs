@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Sockets;
 
 namespace StringCalculatorKata
 {
@@ -38,10 +37,28 @@ namespace StringCalculatorKata
             switch (input[2])
             {
                 case '[':
-                    int closingBracketIndex = input.IndexOf("]");
-                    string delimiter = input.Substring(3, closingBracketIndex - 3);
+                    int closingBracketIndex = input.IndexOf("]", StringComparison.Ordinal);
+                    int openingBracketIndex = 3;
 
+                    string delimiter = input.Substring(openingBracketIndex, closingBracketIndex - 3);
                     delimiters.Add(delimiter);
+
+                    openingBracketIndex = input.IndexOf("[", openingBracketIndex + 1,
+                        StringComparison.Ordinal);
+                    closingBracketIndex = input.IndexOf("]", closingBracketIndex + 1,
+                            StringComparison.Ordinal);
+                    while (openingBracketIndex != -1)
+                    {
+                        delimiter = input.Substring(openingBracketIndex + 1,
+                            closingBracketIndex - openingBracketIndex - 1);
+                        delimiters.Add(delimiter);
+
+                        openingBracketIndex = input.IndexOf("[", openingBracketIndex + 1,
+                            StringComparison.Ordinal);
+                        closingBracketIndex = input.IndexOf("]", closingBracketIndex + 1,
+                            StringComparison.Ordinal);
+                    }
+
                     break;
 
                 default:
@@ -50,6 +67,7 @@ namespace StringCalculatorKata
                     {
                         delimiters.Add(input[2].ToString());
                     }
+
                     break;
             }
 
@@ -65,7 +83,7 @@ namespace StringCalculatorKata
 
             if (input[2] == '[')
             {
-                int closingBracketIndex = input.IndexOf(']');
+                int closingBracketIndex = input.LastIndexOf(']');
                 return input.Substring(closingBracketIndex + 2);
             }
             else

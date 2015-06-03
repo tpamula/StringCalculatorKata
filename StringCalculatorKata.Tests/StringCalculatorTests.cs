@@ -108,6 +108,19 @@ namespace StringCalculatorKata.Tests
         }
 
         [Theory]
+        [InlineData("//[*][%]\n1*2%3", 6)]
+        [InlineData("//[//][\"]\n1//2//3//4\"5//6", 21)]
+        [InlineData("//[_ABcD\\][cykcyk][___]\n1___2_ABcD\\4_ABcD\\10cykcyk123", 140)]
+        public void supports_multiple_custom_delimiters_of_any_length(string input, int expected)
+        {
+            var calculator = new StringCalculator();
+
+            int result = calculator.Add(input);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
         [InlineData("-2", "-2")]
         [InlineData("1,2,3,-4,-5", "-4,-5")]
         [InlineData("1,2,3,-4,-5,1,1,-3,2", "-4,-5,-3")]
