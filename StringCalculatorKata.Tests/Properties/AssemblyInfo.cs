@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("StringCalculatorKata")]
+[assembly: AssemblyTitle("StringCalculatorKata.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("StringCalculatorKata")]
+[assembly: AssemblyProduct("StringCalculatorKata.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("e85c07eb-d756-4631-9598-02e78a1d04a7")]
+[assembly: Guid("8a9f4e73-7e0e-427b-9761-157ec4741637")]
 
 // Version information for an assembly consists of the following four values:
 //
