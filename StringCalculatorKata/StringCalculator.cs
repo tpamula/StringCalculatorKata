@@ -23,6 +23,7 @@ namespace StringCalculatorKata
             var numbers = inputWithoutCustomSeparatorTag
                                 .Split(separators.ToArray())
                                 .Select(int.Parse)
+                                .Where(i => i < 1001)
                                 .ToList();
 
             var negatives = numbers.Where(n => n < 0).ToList();
