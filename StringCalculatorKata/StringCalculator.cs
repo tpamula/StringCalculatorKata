@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 
 namespace StringCalculatorKata
 {
@@ -10,18 +11,12 @@ namespace StringCalculatorKata
         {
             if (string.IsNullOrEmpty(input)) return 0;
 
-            int customDelimiterTagLength = @"//_\n".Length;
-            var separators = new HashSet<char> { ',', '\n' };
+            HashSet<string> delimiters = GetDelimiters(input);
 
-            string inputWithoutCustomSeparatorTag = input;
-            if (input.Length >= customDelimiterTagLength && input.Substring(0, 2) == "//")
-            {
-                separators.Add(input[2]);
-                inputWithoutCustomSeparatorTag = input.Substring(customDelimiterTagLength - 1);
-            }
+            string inputWithoutCustomDelimiterTag = GetInputWithoutCustomDelimiterTag(input);
 
-            var numbers = inputWithoutCustomSeparatorTag
-                                .Split(separators.ToArray())
+            var numbers = inputWithoutCustomDelimiterTag
+                                .Split(delimiters.ToArray(), StringSplitOptions.None)
                                 .Select(int.Parse)
                                 .Where(i => i < 1001)
                                 .ToList();
@@ -30,6 +25,53 @@ namespace StringCalculatorKata
             if (negatives.Any()) throw new Exception(string.Join(",", negatives));
 
             return numbers.Sum();
+        }
+
+        private HashSet<string> GetDelimiters(string input)
+        {
+            int customOneCharDelimiterLength = "//_\n".Length;
+            var delimiters = new HashSet<string> { ",", "\n" };
+
+            if (input.Length < customOneCharDelimiterLength
+                || input.Substring(0, 2) != "//") return delimiters;
+
+            switch (input[2])
+            {
+                case '[':
+                    int closingBracketIndex = input.IndexOf("]");
+                    string delimiter = input.Substring(3, closingBracketIndex - 3);
+
+                    delimiters.Add(delimiter);
+                    break;
+
+                default:
+
+                    if (input.Length >= customOneCharDelimiterLength)
+                    {
+                        delimiters.Add(input[2].ToString());
+                    }
+                    break;
+            }
+
+            return delimiters;
+        }
+
+        private string GetInputWithoutCustomDelimiterTag(string input)
+        {
+            int customOneCharDelimiterLength = "//_\n".Length;
+
+            if (input.Length < customOneCharDelimiterLength
+                || input.Substring(0, 2) != "//") return input;
+
+            if (input[2] == '[')
+            {
+                int closingBracketIndex = input.IndexOf(']');
+                return input.Substring(closingBracketIndex + 2);
+            }
+            else
+            {
+                return input.Substring(customOneCharDelimiterLength);
+            }
         }
     }
 }

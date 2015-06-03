@@ -6,7 +6,7 @@ namespace StringCalculatorKata.Tests
     public class StringCalculatorTests
     {
         [Fact]
-        public void handles_newline_as_separator()
+        public void handles_newline_as_delimiter()
         {
             var calculator = new StringCalculator();
             string input = "1\n2\n3";
@@ -86,6 +86,19 @@ namespace StringCalculatorKata.Tests
         [InlineData("//c\n1c2c3", 6)]
         [InlineData("//!\n1!2!3!4", 10)]
         public void supports_custom_delimiters(string input, int expected)
+        {
+            var calculator = new StringCalculator();
+
+            int result = calculator.Add(input);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData("//[***]\n1***2***3", 6)]
+        [InlineData("//[_ABcD\\]\n2_ABcD\\4_ABcD\\10", 16)]
+        [InlineData("//[//]\n1//2//3//4", 10)]
+        public void supports_custom_delimiters_of_any_length(string input, int expected)
         {
             var calculator = new StringCalculator();
 
