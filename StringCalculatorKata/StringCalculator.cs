@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace StringCalculatorKata
 {
@@ -8,7 +10,7 @@ namespace StringCalculatorKata
         {
             if (string.IsNullOrEmpty(input)) return 0;
 
-            return Convert.ToInt32(input);
+            return input.Split(',').Sum(i => int.Parse(i));
         }
     }
 }
