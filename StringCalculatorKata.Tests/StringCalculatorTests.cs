@@ -20,7 +20,7 @@ namespace StringCalculatorKata.Tests
         [InlineData("4,1001,5", 9)]
         [InlineData("1001,1,1001", 1)]
         [InlineData("1001", 0)]
-        public void ignores_numbers_bigger_than_1001(string input, int expected)
+        public void ignores_numbers_bigger_than_1000(string input, int expected)
         {
             var calculator = new StringCalculator();
 
